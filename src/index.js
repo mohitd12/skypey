@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reducer from './store/reducer';
+import App from './containers/App';
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import store from './store';
 
-const store = createStore(reducer);
+const render = () => {
+	fancyLog();
+	return ReactDOM.render(<App />, document.getElementById('root'));
+};
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+render();
+store.subscribe(render);
 
+function fancyLog() {
+	console.log('%c Rendered with ? ??', 'background: purple; color: #FFF');
+	console.log(store.getState());
+}
